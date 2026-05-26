@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBS Overlay</title>
+    <style>
+        @font-face {
+            font-family: 'B612';
+            src: local('B612'), local('B612-Regular');
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+       .container {
+            text-align: center;
+            position: relative;
+            animation: printAndFade 8.5s ease forwards;
+            transform-origin: center center;
+            scale: 0.75;
+        }
+        .top-text {
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 10px red;
+            margin-bottom: 1px;
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+        .alert-image {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+        .image-text {
+            position: absolute;
+            top: 28%;
+            left: 53.5%;
+            transform: translate(-50%, -50%);
+            font-family: 'B612', B612, sans-serif;
+            font-size: 48px;
+            font-weight: bold;
+            color: black;
+            width: 35%;
+            text-align: left;
+            box-sizing: border-box;
+        }
+        .date-text {
+            position: absolute;
+            top: 37%;
+            left: 53.5%;
+            transform: translate(-50%, -50%);
+            font-family: 'B612', B612, sans-serif;
+            font-size: 48px;
+            font-weight: bold;
+            color: black;
+            width: 35%;
+            text-align: left;
+            box-sizing: border-box;
+        }
+
+        @keyframes printAndFade {
+            0%   { transform: translateX(110%); opacity: 1; }
+
+            5%   { transform: translateX(88%);  opacity: 1; }
+            7%   { transform: translateX(86%);  opacity: 1; }
+            9%   { transform: translateX(84%);  opacity: 1; }
+            11%  { transform: translateX(83%);  opacity: 1; }
+            13%  { transform: translateX(82%);  opacity: 1; }
+
+            23%  { transform: translateX(60%);  opacity: 1; }
+
+            25%  { transform: translateX(58%);  opacity: 1; }
+            27%  { transform: translateX(56%);  opacity: 1; }
+            29%  { transform: translateX(55%);  opacity: 1; }
+            31%  { transform: translateX(54%);  opacity: 1; }
+            33%  { transform: translateX(52%);  opacity: 1; }
+
+            40%  { transform: translateX(32%);  opacity: 1; }
+
+            42%  { transform: translateX(30%);  opacity: 1; }
+            44%  { transform: translateX(28%);  opacity: 1; }
+            46%  { transform: translateX(26%);  opacity: 1; }
+            48%  { transform: translateX(24%);  opacity: 1; }
+            50%  { transform: translateX(22%);  opacity: 1; }
+
+            56%  { transform: translateX(0%);   opacity: 1; }
+            78%  { transform: translateX(0%);   opacity: 1; }
+            100% { transform: translateX(0%);   opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- <div class="top-text" id="top-text">Loading...</div> -->
+        <div class="image-container">
+            <img class="alert-image" src="ALERTS.png" id="alert-image" alt="Alert Image">
+            <div class="image-text" id="image-text">Loading...</div>
+            <div class="date-text" id="date-text"></div>
+        </div>
+    </div>
+    <script>
+        window.onload = function() {
+            // fetchText("topText.txt", "top-text");
+            fetchText("imageText.txt", "image-text");
+
+            const today = new Date();
+            const formatted = today.toLocaleDateString('en-GB');
+            document.getElementById('date-text').textContent = formatted;
+
+            const audio = new Audio('kitchen_ticket_printer_sound.mp3');
+            audio.volume = 0.0; //set to 0 for now for testing only
+            audio.play().catch(error => {
+                console.error('Audio play failed:', error);
+            });
+
+            // Stop audio exactly when animation ends at 8.5 seconds
+            setTimeout(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }, 8500);
+        };
+
+        function fetchText(fileName, elementId) {
+            fetch(fileName)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(elementId).textContent = data.trim();
+                })
+                .catch(error => {
+                    console.error('Error fetching file:', error);
+                    document.getElementById(elementId).textContent = "Error, no username";
+                });
+        }
+    </script>
+</body>
+</html>
