@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OBS Overlay</title>
+    <title>SpoonyAlerts OBS Overlay</title>
     <style>
         @font-face {
             font-family: 'B612';
@@ -157,32 +157,39 @@
         }
 
         @keyframes printAndFade {
-            0%   { transform: translateX(110%); opacity: 1; }
+            /* === SMOOTH ENTRY: ticket slides in from off-screen right === */
+            0%   { transform: translateX(200%); opacity: 1; }
+            3%   { transform: translateX(183%); opacity: 1; }
+            6%   { transform: translateX(166%); opacity: 1; }
+            9%   { transform: translateX(149%); opacity: 1; }
+            12%  { transform: translateX(132%); opacity: 1; }
+            15%  { transform: translateX(115%); opacity: 1; }
+            18%  { transform: translateX(95%);  opacity: 1; }
 
-            5%   { transform: translateX(88%);  opacity: 1; }
-            7%   { transform: translateX(86%);  opacity: 1; }
-            9%   { transform: translateX(84%);  opacity: 1; }
-            11%  { transform: translateX(83%);  opacity: 1; }
-            13%  { transform: translateX(82%);  opacity: 1; }
+            /* === JUDDER 1: ticket catches/stutters while still mostly off-screen === */
+            20%  { transform: translateX(90%);  opacity: 1; }
+            22%  { transform: translateX(86%);  opacity: 1; }
+            24%  { transform: translateX(83%);  opacity: 1; }
+            26%  { transform: translateX(81%);  opacity: 1; }
+            28%  { transform: translateX(80%);  opacity: 1; }
 
-            23%  { transform: translateX(60%);  opacity: 1; }
+            /* === GAP: ticket jumps forward to start position of judder 2 === */
+            34%  { transform: translateX(50%);  opacity: 1; }
 
-            25%  { transform: translateX(58%);  opacity: 1; }
-            27%  { transform: translateX(56%);  opacity: 1; }
-            29%  { transform: translateX(55%);  opacity: 1; }
-            31%  { transform: translateX(54%);  opacity: 1; }
-            33%  { transform: translateX(52%);  opacity: 1; }
+            /* === JUDDER 2: ticket catches again, roughly half on screen === */
+            36%  { transform: translateX(45%);  opacity: 1; }
+            38%  { transform: translateX(41%);  opacity: 1; }
+            40%  { transform: translateX(38%);  opacity: 1; }
+            42%  { transform: translateX(36%);  opacity: 1; }
+            44%  { transform: translateX(35%);  opacity: 1; }
 
-            40%  { transform: translateX(32%);  opacity: 1; }
+            /* === SMOOTH SETTLE: ticket glides into final centered position === */
+            66%  { transform: translateX(0%);   opacity: 1; }
 
-            42%  { transform: translateX(30%);  opacity: 1; }
-            44%  { transform: translateX(28%);  opacity: 1; }
-            46%  { transform: translateX(26%);  opacity: 1; }
-            48%  { transform: translateX(24%);  opacity: 1; }
-            50%  { transform: translateX(22%);  opacity: 1; }
-
-            56%  { transform: translateX(0%);   opacity: 1; }
+            /* === HOLD: ticket stays visible === */
             78%  { transform: translateX(0%);   opacity: 1; }
+
+            /* === FADE OUT: ticket disappears === */
             100% { transform: translateX(0%);   opacity: 0; }
         }
     </style>
