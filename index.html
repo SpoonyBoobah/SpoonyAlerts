@@ -23,22 +23,11 @@
         .container {
             text-align: center;
             position: relative;
-            animation: printAndFade 8.5s ease forwards;
-            /* ===== CHANGED: added scale to match OBS canvas size ===== */
             transform-origin: center center;
             scale: 0.6;
         }
-        .top-text {
-            font-size: 36px;
-            font-weight: bold;
-            color: white;
-            text-shadow: 0 0 10px red;
-            margin-bottom: 1px;
-            width: 100%;
-            max-width: 100%;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
+        .container.ready {
+            animation: printAndFade 8.5s ease forwards;
         }
         .image-container {
             position: relative;
@@ -51,8 +40,8 @@
         }
         .image-text {
             position: absolute;
-            top: 28%;
-            left: 53.5%;
+            top: 36.5%;
+            left: 60%;
             transform: translate(-50%, -50%);
             font-family: 'B612', B612, sans-serif;
             font-size: 48px;
@@ -64,11 +53,102 @@
         }
         .date-text {
             position: absolute;
-            top: 37%;
-            left: 53.5%;
+            top: 46.5%;
+            left: 60%;
             transform: translate(-50%, -50%);
             font-family: 'B612', B612, sans-serif;
             font-size: 48px;
+            font-weight: bold;
+            color: black;
+            width: 35%;
+            text-align: left;
+            box-sizing: border-box;
+        }
+        .flight-text {
+            position: absolute;
+            top: 55.5%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            font-family: 'B612', B612, sans-serif;
+            font-size: 48px;
+            font-weight: bold;
+            color: black;
+            width: 35%;
+            text-align: left;
+            box-sizing: border-box;
+        }
+        .seat-text {
+            position: absolute;
+            top: 64.5%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            font-family: 'B612', B612, sans-serif;
+            font-size: 48px;
+            font-weight: bold;
+            color: black;
+            width: 35%;
+            text-align: left;
+            box-sizing: border-box;
+        }
+        .time-text {
+            position: absolute;
+            top: 74%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            font-family: 'B612', B612, sans-serif;
+            font-size: 48px;
+            font-weight: bold;
+            color: black;
+            width: 35%;
+            text-align: left;
+            box-sizing: border-box;
+        }
+        .date-text-small {
+            position: absolute;
+            top: 66%;
+            left: 109%;
+            transform: translate(-50%, -50%);
+            font-family: 'B612', B612, sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+            width: 35%;
+            text-align: left;
+            box-sizing: border-box;
+        }
+        .flight-text-small {
+            position: absolute;
+            top: 74%;
+            left: 109%;
+            transform: translate(-50%, -50%);
+            font-family: 'B612', B612, sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+            width: 35%;
+            text-align: left;
+            box-sizing: border-box;
+        }
+        .seat-text-small {
+            position: absolute;
+            top: 82%;
+            left: 109%;
+            transform: translate(-50%, -50%);
+            font-family: 'B612', B612, sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+            width: 35%;
+            text-align: left;
+            box-sizing: border-box;
+        }
+        .time-text-small {
+            position: absolute;
+            top: 90%;
+            left: 109%;
+            transform: translate(-50%, -50%);
+            font-family: 'B612', B612, sans-serif;
+            font-size: 24px;
             font-weight: bold;
             color: black;
             width: 35%;
@@ -108,58 +188,138 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- <div class="top-text" id="top-text">Loading...</div> -->
+    <div class="container" id="container">
         <div class="image-container">
-            <!-- ===== CHANGED: removed hardcoded src, now loaded dynamically ===== -->
-            <img class="alert-image" src="ALERTS.png" id="alert-image" alt="Alert Image">
-            <div class="image-text" id="image-text">Loading...</div>
+            <img class="alert-image" id="alert-image" alt="Alert Image">
+            <div class="image-text" id="image-text"></div>
             <div class="date-text" id="date-text"></div>
+            <div class="date-text-small" id="date-text-small"></div>
+            <div class="flight-text" id="flight-text"></div>
+            <div class="flight-text-small" id="flight-text-small"></div>
+            <div class="seat-text" id="seat-text"></div>
+            <div class="seat-text-small" id="seat-text-small"></div>
+            <div class="time-text" id="time-text"></div>
+            <div class="time-text-small" id="time-text-small"></div>
         </div>
     </div>
     <script>
-        window.onload = function() {
-            // fetchText("topText.txt", "top-text");
-            fetchText("imageText.txt", "image-text");
+        window.onload = function () {
+            const container = document.getElementById('container');
+            const alertImage = document.getElementById('alert-image');
 
             const today = new Date();
-            const formatted = today.toLocaleDateString('en-GB');
-            document.getElementById('date-text').textContent = formatted;
+            document.getElementById('date-text').textContent = today.toLocaleDateString('en-GB');
+            document.getElementById('date-text-small').textContent = today.toLocaleDateString('en-GB');
 
-            // ===== NEW: load alert image from alertImage.txt =====
-            fetch("alertImage.txt")
-                .then(response => response.text())
+            const rounded = new Date(Math.ceil(today.getTime() / (5 * 60 * 1000)) * (5 * 60 * 1000));
+            document.getElementById('time-text').textContent = rounded.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
+            document.getElementById('time-text-small').textContent = rounded.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
+
+            fetchText("imageText.txt", "image-text");
+
+
+            const flightNumber = generateFlightNumber();
+            const seatNumber = generateSeatNumber();
+
+            document.getElementById('flight-text').textContent = flightNumber;
+            document.getElementById('flight-text-small').textContent = flightNumber;
+
+            document.getElementById('seat-text').textContent = seatNumber;
+            document.getElementById('seat-text-small').textContent = seatNumber;
+
+
+            
+
+            fetch("alertImage.txt?nocache=" + Date.now())
+                .then(response => {
+                    if (!response.ok) throw new Error('Could not read alertImage.txt');
+                    return response.text();
+                })
                 .then(data => {
-                    document.getElementById("alert-image").src = data.trim();
+                    const src = data.trim();
+
+                    alertImage.onload = function () {
+                        startAlert();
+                    };
+
+                    alertImage.onerror = function () {
+                        console.error('Image failed to load:', src);
+                        // do nothing — alert will not fire
+                    };
+
+                    alertImage.src = src;
+
+                    if (alertImage.complete && alertImage.naturalWidth > 0) {
+                        startAlert();
+                    }
                 })
                 .catch(error => {
-                    console.error('Error loading image:', error);
-                    document.getElementById("alert-image").src = "ALERTS.png";
+                    console.error('Error loading alertImage.txt:', error);
+                    // do nothing — alert will not fire
                 });
-            // ===== END NEW =====
 
-            // Play printer sound
-            const audio = new Audio('kitchen_ticket_printer_sound.mp3');
-            audio.volume = 1.0;
-            audio.play().catch(error => {
-                console.error('Audio play failed:', error);
-            });
+            function startAlert() {
+                if (container.classList.contains('ready')) return;
 
-            setTimeout(() => {
-                audio.pause();
-                audio.currentTime = 0;
-            }, 8500);
+                container.classList.add('ready');
+
+                const audio = new Audio('kitchen_ticket_printer_sound.mp3');
+                audio.volume = 0.0;
+                audio.play().catch(error => {
+                    console.error('Audio play failed:', error);
+                });
+
+                setTimeout(() => {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }, 8500);
+            }
         };
 
+        function generateFlightNumber() {
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const getDigit = () => Math.floor(Math.random() * 10);
+            const getLetter = () => letters.charAt(Math.floor(Math.random() * 26));
+
+            const numDigits = Math.random() < 0.5 ? 2 : 3;
+            let digits = '';
+            for (let i = 0; i < numDigits; i++) {
+                digits += getDigit();
+            }
+
+            const numLetters = Math.random() < 0.5 ? 1 : 2;
+            let suffix = '';
+            for (let i = 0; i < numLetters; i++) {
+                suffix += getLetter();
+            }
+
+            return 'ATV' + digits + suffix;
+        }
+
+        function generateSeatNumber() {
+            // Airbus A320 layout: rows 1-30, seats A-F
+            // Row 1 is business/front, rows 2-30 economy
+            // No row 13 on many airlines (superstition) — skipped here too
+            const seatLetters = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+            let row;
+            do {
+                row = Math.floor(Math.random() * 30) + 1;
+            } while (row === 13);
+
+            const letter = seatLetters[Math.floor(Math.random() * seatLetters.length)];
+
+            return row + letter;
+        }
+
         function fetchText(fileName, elementId) {
-            fetch(fileName)
+            fetch(fileName + "?nocache=" + Date.now())
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById(elementId).textContent = data.trim();
                 })
                 .catch(error => {
                     console.error('Error fetching file:', error);
-                    document.getElementById(elementId).textContent = "SpoonyBoobah";
                 });
         }
     </script>
