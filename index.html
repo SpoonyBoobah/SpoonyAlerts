@@ -214,56 +214,68 @@
             const container = document.getElementById('container');
             const alertImage = document.getElementById('alert-image');
 
-            const today = new Date();
-            document.getElementById('date-text').textContent = today.toLocaleDateString('en-GB');
-            document.getElementById('date-text-small').textContent = today.toLocaleDateString('en-GB');
+            // Track the last known value of alertImage.txt — null means first load (don't fire)
+            let lastAlertSrc = null;
 
-            const rounded = new Date(Math.ceil(today.getTime() / (5 * 60 * 1000)) * (5 * 60 * 1000));
-            document.getElementById('time-text').textContent = rounded.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
-            document.getElementById('time-text-small').textContent = rounded.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
+            function checkForAlert() {
+                fetch("alertImage.txt?nocache=" + Date.now())
+                    .then(response => {
+                        if (!response.ok) throw new Error('Could not read alertImage.txt');
+                        return response.text();
+                    })
+                    .then(data => {
+                        const src = data.trim();
 
-            fetchText("imageText.txt", "image-text");
+                        // First load — just store the value silently, don't fire
+                        if (lastAlertSrc === null) {
+                            lastAlertSrc = src;
+                            return;
+                        }
 
+                        // Only fire if the value has actually changed
+                        if (src !== lastAlertSrc) {
+                            lastAlertSrc = src;
 
-            const flightNumber = generateFlightNumber();
-            const seatNumber = generateSeatNumber();
+                            const today = new Date();
+                            document.getElementById('date-text').textContent = today.toLocaleDateString('en-GB');
+                            document.getElementById('date-text-small').textContent = today.toLocaleDateString('en-GB');
 
-            document.getElementById('flight-text').textContent = flightNumber;
-            document.getElementById('flight-text-small').textContent = flightNumber;
+                            const rounded = new Date(Math.ceil(today.getTime() / (5 * 60 * 1000)) * (5 * 60 * 1000));
+                            document.getElementById('time-text').textContent = rounded.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
+                            document.getElementById('time-text-small').textContent = rounded.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
 
-            document.getElementById('seat-text').textContent = seatNumber;
-            document.getElementById('seat-text-small').textContent = seatNumber;
+                            fetchText("imageText.txt", "image-text");
 
+                            const flightNumber = generateFlightNumber();
+                            const seatNumber = generateSeatNumber();
 
-            
+                            document.getElementById('flight-text').textContent = flightNumber;
+                            document.getElementById('flight-text-small').textContent = flightNumber;
 
-            fetch("alertImage.txt?nocache=" + Date.now())
-                .then(response => {
-                    if (!response.ok) throw new Error('Could not read alertImage.txt');
-                    return response.text();
-                })
-                .then(data => {
-                    const src = data.trim();
+                            document.getElementById('seat-text').textContent = seatNumber;
+                            document.getElementById('seat-text-small').textContent = seatNumber;
 
-                    alertImage.onload = function () {
-                        startAlert();
-                    };
+                            // Reset animation so it can fire again
+                            container.classList.remove('ready');
+                            void container.offsetWidth; // force reflow
 
-                    alertImage.onerror = function () {
-                        console.error('Image failed to load:', src);
-                        // do nothing — alert will not fire
-                    };
+                            alertImage.onload = function () {
+                                startAlert();
+                            };
 
-                    alertImage.src = src;
+                            alertImage.onerror = function () {
+                                console.error('Image failed to load:', src);
+                            };
 
-                    if (alertImage.complete && alertImage.naturalWidth > 0) {
-                        startAlert();
-                    }
-                })
-                .catch(error => {
-                    console.error('Error loading alertImage.txt:', error);
-                    // do nothing — alert will not fire
-                });
+                            alertImage.src = src;
+
+                            if (alertImage.complete && alertImage.naturalWidth > 0) {
+                                startAlert();
+                            }
+                        }
+                    })
+                    .catch(error => console.error('Error loading alertImage.txt:', error));
+            }
 
             function startAlert() {
                 if (container.classList.contains('ready')) return;
@@ -281,6 +293,10 @@
                     audio.currentTime = 0;
                 }, 8500);
             }
+
+            // Poll every 2 seconds for changes to alertImage.txt
+            checkForAlert();
+            setInterval(checkForAlert, 2000);
         };
 
         function generateFlightNumber() {
@@ -304,9 +320,6 @@
         }
 
         function generateSeatNumber() {
-            // Airbus A320 layout: rows 1-30, seats A-F
-            // Row 1 is business/front, rows 2-30 economy
-            // No row 13 on many airlines (superstition) — skipped here too
             const seatLetters = ['A', 'B', 'C', 'D', 'E', 'F'];
 
             let row;
