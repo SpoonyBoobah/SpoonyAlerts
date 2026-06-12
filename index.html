@@ -38,126 +38,45 @@
             max-width: 100%;
             height: auto;
         }
-        .image-text {
-            position: absolute;
-            top: 36.5%;
-            left: 60%;
-            transform: translate(-50%, -50%);
-            font-family: 'B612', B612, sans-serif;
-            font-size: 48px;
-            font-weight: bold;
-            color: black;
-            width: 35%;
-            text-align: left;
-            box-sizing: border-box;
-        }
-        .date-text {
-            position: absolute;
-            top: 46.5%;
-            left: 60%;
-            transform: translate(-50%, -50%);
-            font-family: 'B612', B612, sans-serif;
-            font-size: 48px;
-            font-weight: bold;
-            color: black;
-            width: 35%;
-            text-align: left;
-            box-sizing: border-box;
-        }
-        .flight-text {
-            position: absolute;
-            top: 55.5%;
-            left: 60%;
-            transform: translate(-50%, -50%);
-            font-family: 'B612', B612, sans-serif;
-            font-size: 48px;
-            font-weight: bold;
-            color: black;
-            width: 35%;
-            text-align: left;
-            box-sizing: border-box;
-        }
-        .seat-text {
-            position: absolute;
-            top: 64.5%;
-            left: 60%;
-            transform: translate(-50%, -50%);
-            font-family: 'B612', B612, sans-serif;
-            font-size: 48px;
-            font-weight: bold;
-            color: black;
-            width: 35%;
-            text-align: left;
-            box-sizing: border-box;
-        }
-        .time-text {
-            position: absolute;
-            top: 74%;
-            left: 60%;
-            transform: translate(-50%, -50%);
-            font-family: 'B612', B612, sans-serif;
-            font-size: 48px;
-            font-weight: bold;
-            color: black;
-            width: 35%;
-            text-align: left;
-            box-sizing: border-box;
-        }
-        .date-text-small {
-            position: absolute;
-            top: 66%;
-            left: 109%;
-            transform: translate(-50%, -50%);
-            font-family: 'B612', B612, sans-serif;
-            font-size: 24px;
-            font-weight: bold;
-            color: black;
-            width: 35%;
-            text-align: left;
-            box-sizing: border-box;
-        }
-        .flight-text-small {
-            position: absolute;
-            top: 74%;
-            left: 109%;
-            transform: translate(-50%, -50%);
-            font-family: 'B612', B612, sans-serif;
-            font-size: 24px;
-            font-weight: bold;
-            color: black;
-            width: 35%;
-            text-align: left;
-            box-sizing: border-box;
-        }
-        .seat-text-small {
-            position: absolute;
-            top: 82%;
-            left: 109%;
-            transform: translate(-50%, -50%);
-            font-family: 'B612', B612, sans-serif;
-            font-size: 24px;
-            font-weight: bold;
-            color: black;
-            width: 35%;
-            text-align: left;
-            box-sizing: border-box;
-        }
-        .time-text-small {
-            position: absolute;
-            top: 90%;
-            left: 109%;
-            transform: translate(-50%, -50%);
-            font-family: 'B612', B612, sans-serif;
-            font-size: 24px;
-            font-weight: bold;
-            color: black;
-            width: 35%;
-            text-align: left;
-            box-sizing: border-box;
-        }
 
+        /* ===================== FOLLOW / BOARDING PASS FIELDS ===================== */
+        .follow-fields div {
+            position: absolute;
+            font-family: 'B612', B612, sans-serif;
+            font-weight: bold;
+            color: black;
+            box-sizing: border-box;
+            text-align: left;
+        }
+        .image-text  { top: 36.5%; left: 60%; transform: translate(-50%, -50%); font-size: 48px; width: 35%; }
+        .date-text   { top: 46.5%; left: 60%; transform: translate(-50%, -50%); font-size: 48px; width: 35%; }
+        .flight-text { top: 55.5%; left: 60%; transform: translate(-50%, -50%); font-size: 48px; width: 35%; }
+        .seat-text   { top: 64.5%; left: 60%; transform: translate(-50%, -50%); font-size: 48px; width: 35%; }
+        .time-text   { top: 74%;   left: 60%; transform: translate(-50%, -50%); font-size: 48px; width: 35%; }
+        .date-text-small   { top: 66%; left: 109%; transform: translate(-50%, -50%); font-size: 24px; width: 35%; }
+        .flight-text-small { top: 74%; left: 109%; transform: translate(-50%, -50%); font-size: 24px; width: 35%; }
+        .seat-text-small   { top: 82%; left: 109%; transform: translate(-50%, -50%); font-size: 24px; width: 35%; }
+        .time-text-small   { top: 90%; left: 109%; transform: translate(-50%, -50%); font-size: 24px; width: 35%; }
+
+        /* ===================== SUB / MEMBER CARD FIELDS ===================== */
+        .sub-fields div {
+            position: absolute;
+            font-family: 'B612', B612, sans-serif;
+            font-weight: bold;
+            color: white;
+            box-sizing: border-box;
+            text-align: left;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+        }
+        .sub-username { top: 61%;  left: 20%; font-size: 36px; width: 47%; }
+        .sub-duration { top: 77%; left: 20%; font-size: 36px; width: 47%; }
+
+        /* ===================== VISIBILITY ===================== */
+        .follow-fields, .sub-fields { display: none; }
+        .follow-fields div, .sub-fields div { position: absolute; }
+
+        /* ===================== ANIMATION — BOARDING PASS (right to centre) ===================== */
         @keyframes printAndFade {
-            /* === SMOOTH ENTRY: ticket slides in from off-screen right === */
             0%   { transform: translateX(200%); opacity: 1; }
             2%   { transform: translateX(183%); opacity: 1; }
             4%   { transform: translateX(166%); opacity: 1; }
@@ -165,128 +84,185 @@
             8%   { transform: translateX(132%); opacity: 1; }
             10%  { transform: translateX(115%); opacity: 1; }
             12%  { transform: translateX(95%);  opacity: 1; }
-
-            /* === JUDDER 1: ticket catches/stutters while still mostly off-screen === */
             14%  { transform: translateX(90%);  opacity: 1; }
             16%  { transform: translateX(86%);  opacity: 1; }
             18%  { transform: translateX(83%);  opacity: 1; }
             20%  { transform: translateX(81%);  opacity: 1; }
             22%  { transform: translateX(80%);  opacity: 1; }
-
-            /* === GAP: ticket jumps forward to start position of judder 2 === */
             28%  { transform: translateX(50%);  opacity: 1; }
-
-            /* === JUDDER 2: ticket catches again, roughly half on screen === */
             30%  { transform: translateX(45%);  opacity: 1; }
             32%  { transform: translateX(41%);  opacity: 1; }
             34%  { transform: translateX(38%);  opacity: 1; }
             36%  { transform: translateX(36%);  opacity: 1; }
             38%  { transform: translateX(35%);  opacity: 1; }
-
-            /* === SMOOTH SETTLE: ticket glides into final centered position === */
             60%  { transform: translateX(0%);   opacity: 1; }
-
-            /* === HOLD: ticket stays visible === */
             78%  { transform: translateX(0%);   opacity: 1; }
-
-            /* === FADE OUT: ticket disappears === */
             100% { transform: translateX(0%);   opacity: 0; }
+        }
+
+        /* ===================== ANIMATION — CARD SWIPE (top to centre, left, right, fade) ===================== */
+        @keyframes cardSwipe {
+            /* === ENTRY: card drops in from top === */
+            0%   { transform: translateY(-200%); opacity: 1; }
+            12%  { transform: translateY(0%);    opacity: 1; }
+
+            /* === HOLD at centre === */
+            22%  { transform: translateY(0%);    opacity: 1; }
+
+            /* === SLIDE to left 1/3 === */
+            32%  { transform: translateX(-67%);  opacity: 1; }
+
+            /* === BRIEF PAUSE at left === */
+            38%  { transform: translateX(-67%);  opacity: 1; }
+
+            /* === SWIPE to right 2/3 === */
+            52%  { transform: translateX(67%);   opacity: 1; }
+
+            /* === BRIEF PAUSE at right === */
+            62%  { transform: translateX(67%);   opacity: 1; }
+
+            /* === FADE OUT === */
+            100% { transform: translateX(67%);   opacity: 0; }
+        }
+
+        .container.ready-follow {
+            animation: printAndFade 8.5s ease forwards;
+        }
+        .container.ready-sub {
+            animation: cardSwipe 8.5s ease forwards;
         }
     </style>
 </head>
 <body>
     <div class="container" id="container">
         <div class="image-container">
-            <img class="alert-image" id="alert-image" alt="Alert Image">
-            <div class="image-text" id="image-text"></div>
-            <div class="date-text" id="date-text"></div>
-            <div class="date-text-small" id="date-text-small"></div>
-            <div class="flight-text" id="flight-text"></div>
-            <div class="flight-text-small" id="flight-text-small"></div>
-            <div class="seat-text" id="seat-text"></div>
-            <div class="seat-text-small" id="seat-text-small"></div>
-            <div class="time-text" id="time-text"></div>
-            <div class="time-text-small" id="time-text-small"></div>
+            <img class="alert-image" id="alert-image" alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+
+            <!-- Follow / Boarding Pass fields -->
+            <div class="follow-fields" id="follow-fields">
+                <div class="image-text"        id="image-text"></div>
+                <div class="date-text"         id="date-text"></div>
+                <div class="flight-text"       id="flight-text"></div>
+                <div class="seat-text"         id="seat-text"></div>
+                <div class="time-text"         id="time-text"></div>
+                <div class="date-text-small"   id="date-text-small"></div>
+                <div class="flight-text-small" id="flight-text-small"></div>
+                <div class="seat-text-small"   id="seat-text-small"></div>
+                <div class="time-text-small"   id="time-text-small"></div>
+            </div>
+
+            <!-- Sub / Member Card fields -->
+            <div class="sub-fields" id="sub-fields">
+                <div class="sub-username" id="sub-username"></div>
+                <div class="sub-duration" id="sub-duration"></div>
+            </div>
         </div>
     </div>
+
     <script>
         window.onload = function () {
-            const container = document.getElementById('container');
+            const container  = document.getElementById('container');
             const alertImage = document.getElementById('alert-image');
 
-            // Track the last known value of alertImage.txt — null means first load (don't fire)
             let lastAlertSrc = null;
 
             function checkForAlert() {
                 fetch("alertImage.txt?nocache=" + Date.now())
-                    .then(response => {
-                        if (!response.ok) throw new Error('Could not read alertImage.txt');
-                        return response.text();
-                    })
+                    .then(r => { if (!r.ok) throw new Error('Cannot read alertImage.txt'); return r.text(); })
                     .then(data => {
-                        const src = data.trim();
+                        const raw = data.trim();
 
-                        // First load — just store the value silently, don't fire
+                        // First load — set to empty so any trigger fires
                         if (lastAlertSrc === null) {
-                            lastAlertSrc = src;
+                            lastAlertSrc = '';
                             return;
                         }
 
-                        // Only fire if the value has actually changed
-                        if (src !== lastAlertSrc) {
-                            lastAlertSrc = src;
+                        // Only fire on change
+                        if (raw === lastAlertSrc) return;
+                        lastAlertSrc = raw;
 
-                            const today = new Date();
-                            document.getElementById('date-text').textContent = today.toLocaleDateString('en-GB');
-                            document.getElementById('date-text-small').textContent = today.toLocaleDateString('en-GB');
+                        // Parse pipe-separated format:
+                        // follow|image.png|username|timestamp
+                        // sub|image.png|username|duration
+                        const parts  = raw.split('|');
+                        const type   = parts[0].trim().toLowerCase();
+                        let imgSrc = parts[1] ? parts[1].trim() : '';
+                        const param1 = parts[2] ? parts[2].trim() : '';
+                        const param2 = parts[3] ? parts[3].trim() : '';
 
-                            const rounded = new Date(Math.ceil(today.getTime() / (5 * 60 * 1000)) * (5 * 60 * 1000));
-                            document.getElementById('time-text').textContent = rounded.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
-                            document.getElementById('time-text-small').textContent = rounded.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
+                        // Hide both field sets, show the right one
+                        document.getElementById('follow-fields').style.display = 'none';
+                        document.getElementById('sub-fields').style.display    = 'none';
 
-                            fetchText("imageText.txt", "image-text");
+                        if (type === 'follow' || type.endsWith('_follow')) {
+                            setupFollowAlert(param1);
+                            document.getElementById('follow-fields').style.display = 'block';
+                        } else if (type === 'sub' || type.endsWith('_sub') || type.endsWith('_member')) {
+                            setupSubAlert(param1, param2);
+                            document.getElementById('sub-fields').style.display = 'block';
+                            // Override image based on cumulative months
+                            const months = parseInt(param2) || 0;
+                            if (months >= 36)      imgSrc = 'sub_diamond.png';
+                            else if (months >= 24) imgSrc = 'sub_platinum.png';
+                            else if (months >= 12) imgSrc = 'sub_gold.png';
+                            else if (months >= 6)  imgSrc = 'sub_silver.png';
+                            else if (months >= 3)  imgSrc = 'sub_bronze.png';
+                            else                   imgSrc = 'sub.png';
+                        }
 
-                            const flightNumber = generateFlightNumber();
-                            const seatNumber = generateSeatNumber();
+                        // Reset animation
+                        container.classList.remove('ready-follow', 'ready-sub');
+                        void container.offsetWidth;
 
-                            document.getElementById('flight-text').textContent = flightNumber;
-                            document.getElementById('flight-text-small').textContent = flightNumber;
+                        // Use imgSrc directly — same as original working version
+                        alertImage.onload  = () => startAlert(type);
+                        alertImage.onerror = () => console.error('Image failed to load:', imgSrc);
+                        alertImage.src = imgSrc;
 
-                            document.getElementById('seat-text').textContent = seatNumber;
-                            document.getElementById('seat-text-small').textContent = seatNumber;
-
-                            // Reset animation so it can fire again
-                            container.classList.remove('ready');
-                            void container.offsetWidth; // force reflow
-
-                            alertImage.onload = function () {
-                                startAlert();
-                            };
-
-                            alertImage.onerror = function () {
-                                console.error('Image failed to load:', src);
-                            };
-
-                            alertImage.src = src;
-
-                            if (alertImage.complete && alertImage.naturalWidth > 0) {
-                                startAlert();
-                            }
+                        if (alertImage.complete && alertImage.naturalWidth > 0) {
+                            startAlert(type);
                         }
                     })
-                    .catch(error => console.error('Error loading alertImage.txt:', error));
+                    .catch(e => console.error('Error loading alertImage.txt:', e));
             }
 
-            function startAlert() {
-                if (container.classList.contains('ready')) return;
+            function setupFollowAlert(username) {
+                const today = new Date();
+                document.getElementById('date-text').textContent       = today.toLocaleDateString('en-GB');
+                document.getElementById('date-text-small').textContent = today.toLocaleDateString('en-GB');
 
-                container.classList.add('ready');
+                const rounded = new Date(Math.ceil(today.getTime() / (5 * 60 * 1000)) * (5 * 60 * 1000));
+                const timeStr = rounded.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
+                document.getElementById('time-text').textContent       = timeStr;
+                document.getElementById('time-text-small').textContent = timeStr;
 
-                const audio = new Audio('come_fly_with_me.mp3');
+                document.getElementById('image-text').textContent = username || '';
+
+                const flight = generateFlightNumber();
+                const seat   = generateSeatNumber();
+                document.getElementById('flight-text').textContent       = flight;
+                document.getElementById('flight-text-small').textContent = flight;
+                document.getElementById('seat-text').textContent         = seat;
+                document.getElementById('seat-text-small').textContent   = seat;
+            }
+
+            function setupSubAlert(username, duration) {
+                document.getElementById('sub-username').textContent = username || '';
+                document.getElementById('sub-duration').textContent = duration || '';
+            }
+
+            function startAlert(type) {
+                if (container.classList.contains('ready-follow') || container.classList.contains('ready-sub')) return;
+
+                const isSub = (type === 'sub' || type.endsWith('_sub') || type.endsWith('_member'));
+                container.classList.add(isSub ? 'ready-sub' : 'ready-follow');
+
+                const soundFile = isSub ? 'Sub_alert.mp3' : 'come_fly_with_me.mp3';
+
+                const audio = new Audio(soundFile);
                 audio.volume = 1.0;
-                audio.play().catch(error => {
-                    console.error('Audio play failed:', error);
-                });
+                audio.play().catch(e => console.error('Audio play failed:', e));
 
                 setTimeout(() => {
                     audio.pause();
@@ -294,53 +270,28 @@
                 }, 8500);
             }
 
-            // Poll every 2 seconds for changes to alertImage.txt
+            // Poll every 2 seconds
             checkForAlert();
             setInterval(checkForAlert, 2000);
         };
 
         function generateFlightNumber() {
             const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const getDigit = () => Math.floor(Math.random() * 10);
+            const getDigit  = () => Math.floor(Math.random() * 10);
             const getLetter = () => letters.charAt(Math.floor(Math.random() * 26));
-
-            const numDigits = Math.random() < 0.5 ? 2 : 3;
-            let digits = '';
-            for (let i = 0; i < numDigits; i++) {
-                digits += getDigit();
-            }
-
+            const numDigits  = Math.random() < 0.5 ? 2 : 3;
             const numLetters = Math.random() < 0.5 ? 1 : 2;
-            let suffix = '';
-            for (let i = 0; i < numLetters; i++) {
-                suffix += getLetter();
-            }
-
+            let digits = '', suffix = '';
+            for (let i = 0; i < numDigits;  i++) digits  += getDigit();
+            for (let i = 0; i < numLetters; i++) suffix  += getLetter();
             return 'ATV' + digits + suffix;
         }
 
         function generateSeatNumber() {
-            const seatLetters = ['A', 'B', 'C', 'D', 'E', 'F'];
-
+            const letters = ['A','B','C','D','E','F'];
             let row;
-            do {
-                row = Math.floor(Math.random() * 30) + 1;
-            } while (row === 13);
-
-            const letter = seatLetters[Math.floor(Math.random() * seatLetters.length)];
-
-            return row + letter;
-        }
-
-        function fetchText(fileName, elementId) {
-            fetch(fileName + "?nocache=" + Date.now())
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById(elementId).textContent = data.trim();
-                })
-                .catch(error => {
-                    console.error('Error fetching file:', error);
-                });
+            do { row = Math.floor(Math.random() * 30) + 1; } while (row === 13);
+            return row + letters[Math.floor(Math.random() * letters.length)];
         }
     </script>
 </body>
